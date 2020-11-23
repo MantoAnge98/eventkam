@@ -15,9 +15,6 @@ class Event < ApplicationRecord
   validates_presence_of :date_start, :date_end 
   validate :date_end_is_after_date_start
 
-  has_many :labellings, dependent: :destroy
-  has_many :labels, through: :labellings
-
 
   def total_particpants
     0

@@ -8,14 +8,13 @@ Bundler.require(*Rails.groups)
 
 module Eventkam
   class Application < Rails::Application
-    
+    config.load_defaults 5.2
+
     config.action_mailer.default_url_options = { host: 'http://bishop-samurai.herokuapp.com/', protocol: 'http' }
   
     config.exceptions_app = self.routes
     config.assets.initialize_on_precompile = false
 
-    config.load_defaults 6.0
-    
     config.generators do |g|
       g.assets false
       g.helper false
