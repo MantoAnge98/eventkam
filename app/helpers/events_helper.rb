@@ -10,7 +10,7 @@ module EventsHelper
       4
     end
   end
-
+  
   def canceled_event(user, event)
     if user == true && event.date_end >= Date.today
       1
