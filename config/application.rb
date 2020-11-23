@@ -12,6 +12,8 @@ module Eventkam
 
     config.action_mailer.default_url_options = { host: 'http://bishop-samurai.herokuapp.com/', protocol: 'http' }
   
+    config.i18n.default_locale = :en
+
     config.exceptions_app = self.routes
     config.assets.initialize_on_precompile = false
 

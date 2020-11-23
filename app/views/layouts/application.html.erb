@@ -27,7 +27,6 @@
     <div class="container">
       <div class="row" style="margin-top:30px">
         <div class="col-lg-12 text-center">
-
           <% if flash[:notice] %>
             <p class="alert alert-success alert-dismissible fade show" id="success">
               <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>	
@@ -54,7 +53,9 @@
 
 <%= javascript_pack_tag 'application' %>
    
-<script>
+<%
+=begin%>
+ <script type="text/javascript">
   var loadFile = function(event) {
     var output = document.getElementById('output');
     output.src = URL.createObjectURL(event.target.files[0]);
@@ -68,7 +69,9 @@
 
   var ele2 = $("#info2");
   setTimeout(function() { ele2.hide(); }, 3000);
-</script>
+</script> 
+<%
+=end%>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

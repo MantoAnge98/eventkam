@@ -27,7 +27,7 @@ class EventsController < ApplicationController
   def search 
     @users = User.all
     if params[:search].blank?  
-      redirect_to events_path, notice: "Empty field!"
+      redirect_to events_path, notice: I18n.t('event.search')
     else  
       @parameter = params[:search].downcase  
       @events = Event.all.where("lower(title) LIKE :search", search: @parameter)  
@@ -48,7 +48,7 @@ class EventsController < ApplicationController
   def create
     @event = current_user.events.build(event_params)
     if @event.save
-      redirect_to events_path, notice: 'Event was successfully created.'
+      redirect_to events_path, notice: I18n.t('event.create')
     else
       render :new
     end
@@ -56,7 +56,7 @@ class EventsController < ApplicationController
 
   def update
     if @event.update(event_params)
-      redirect_to events_path, notice: 'Event was successfully updated.'
+      redirect_to events_path, notice: I18n.t('event.update')
     else
       render :edit 
     end
@@ -64,18 +64,18 @@ class EventsController < ApplicationController
 
   def destroy
     @event.destroy
-    redirect_to events_path, notice: 'Event was successfully destroyed.'
+    redirect_to events_path, notice: I18n.t('event.destroy')
   end
 
 
   private
     def user_check
-      redirect_to events_path, notice: 'access deny' unless current_user.id == @event.user.id || current_user.try(:admin?)
+      redirect_to events_path, notice: I18n.t('event.user_check') unless current_user.id == @event.user.id || current_user.try(:admin?)
     end
 
     def login_check
       unless user_signed_in?
-        redirect_to root_path, notice: "Please Sign up or login before"
+        redirect_to root_path, notice: I18n.t('event.login_check')
       end 
     end
 

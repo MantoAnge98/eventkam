@@ -22,7 +22,7 @@ class UsersController < ApplicationController
   def search 
     @users = User.all
     if params[:search].blank?  
-      redirect_to users_path, notice: "Empty field!"
+      redirect_to users_path, notice: I18n.t('user.search')
     else  
       @parameter = params[:search].downcase  
       @events = User.all.where("lower(name) LIKE :search", search: @parameter)  
@@ -31,7 +31,6 @@ class UsersController < ApplicationController
 
 
   def show
-  
     @events = Participant.find_by(event_id: params[:format], participants_id: current_user[:id])
     #@favorite = @startup.favorites.find_by(startup_id: @startup.id)
     @user = User.find(params[:id])
@@ -43,7 +42,7 @@ class UsersController < ApplicationController
   
   def destroy
     @user.destroy
-    redirect_to root_path, notice: "User are Deleted :(( bye bye"
+    redirect_to root_path, notice: I18n.t('user.destroy')
   end
 
   private

@@ -20,6 +20,10 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :participants,  only: [:index] do
+    match '/join', to: 'participants#join_event', via: :post, on: :collection 
+    match '/canceled', to: 'participants#canceled_event', via: :post, on: :collection
+  end
 
     #routes to errors
   match "404", :to => 'errors#not_found', :via => :all

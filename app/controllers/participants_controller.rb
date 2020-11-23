@@ -20,7 +20,7 @@ class ParticipantsController < ApplicationController
     @user = User.all
     event = Participant.create(event_id: params[:format], participants_id: current_user[:id])
     event.save
-    flash[:notice] = 'Thank you for joining our event!'
+    flash[:notice] = I18n.t('participant.join_event')
     redirect_to event_path(params[:format])
   end
 
@@ -28,7 +28,7 @@ class ParticipantsController < ApplicationController
   def canceled_event
     event = Participant.find_by(event_id: params[:format], participants_id: current_user[:id])
     event.destroy
-    flash[:notice] =  "The event is removed from your participation"
+    flash[:notice] =  I18n.t('participant.canceled_event')
     redirect_to events_path
   end
 
