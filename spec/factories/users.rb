@@ -14,4 +14,14 @@ FactoryBot.define do
     password{ "000000" }
     password_confirmation{ "000000" }
   end
+
+  factory :admin_user, class: User do
+    name { "admin" }
+    avatar {"image.png"}
+    email { "admin@gmail.com" }
+    password { "000000" }
+    password_confirmation{ "000000" }
+    admin {true}
+  end
+
 end

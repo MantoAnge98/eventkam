@@ -17,7 +17,7 @@ class User < ApplicationRecord
     if avatar.present?
       avatar.url
     else
-      '/default-avatar.png'
+      '/image.png'
     end
   end
 
