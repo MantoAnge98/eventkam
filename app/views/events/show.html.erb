@@ -1,0 +1,104 @@
+<div class="row page-titles mx-0">
+  <div class="col-sm-6 p-md-0">
+      <div class="welcome-text">
+          <h4>Event Information</h4>
+          <p class="mb-0">Your business dashboard template</p>
+      </div>
+  </div>
+</div>
+
+<div class="col-xl-12">
+  <div class="card">
+      <div class="card-body">
+        <div class="profile-tab">
+          <div class="custom-tab-1">
+            <ul class="nav nav-tabs">
+                <li class="nav-item"><a href="#my-posts" data-toggle="tab" class="nav-link show active">Name</a>
+                </li>
+                <li class="nav-item"><a href="#about-me" data-toggle="tab" class="nav-link">Image and Desciption</a>
+                </li>
+                <li class="nav-item"><a href="#profile-settings" data-toggle="tab" class="nav-link">Date</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+              <div id="my-posts" class="tab-pane fade active show">
+                <div class="my-post-content pt-3 ">
+                  <div class="profile-uoloaded-post border-bottom-1 pb-5 text-center">
+                    <h4>Organizer Name's :</h4>
+                    <%=@event.user.name%> on <%= format_date @event.created_at %>.
+                    <hr>
+                    <br>
+                    <h4>Event Name's :</h4>
+                    <%=@event.title%>
+                  </div>
+                </div>
+              </div>
+
+            <div id="about-me" class="tab-pane fade">
+              <div class="profile-about-me">
+                <div class="pt-4 border-bottom-1 pb-3">
+                  <div class="col-12 text-center">
+                    <div class="bgl-primary rounded p-3">
+                      <h4 class="mb-0">Image</h4>
+                    </div>
+                    <br>
+                  </div>
+                  <div class="profile-uoloaded-post border-bottom-1 pb-5 text-center">
+                    <%= image_tag (@event.image_thumbnail), class:"img-fluid"%>
+                  </div>
+                </div>
+              </div>
+
+              <div class="profile-about-me">
+                <div class="pt-4 border-bottom-1 pb-3">
+                    <h4 class="text-primary">Description</h4>
+                    <p class="mb-2"><%=@event.content%></p>
+                    <p>A collection of textile samples lay spread out on the table - Samsa was a travelling salesman - and above it there hung a picture that he had recently cut out of an illustrated magazine and housed in a nice, gilded frame.</p>
+                </div>
+              </div>
+                         
+                      </div>
+                      <div id="profile-settings" class="tab-pane fade text-center">
+                         <h4 class="text-primary">Date Start</h4>
+                          <p class="mb-2"><%=@event.date_start%></p>
+                          <hr>
+                        <h4 class="text-primary">Date End</h4>
+                        <p class="mb-2"><%=@event.date_end%></p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+    <% if joinable_event(@user_registered, @event) == 1  %>  
+    <button type="button"  class="btn btn-warning" disabled>  You are registred for this event </button>
+    <% elsif joinable_event(@user_registered, @event) == 2 %>
+    <button type="button" class="btn btn-danger" disabled>  Sing In or Sing up to register to an event </button>
+    <% elsif joinable_event(@user_registered, @event) == 3 %>
+    <button class="btn btn-primary" disabled>Event Finished</button>
+    <% else %>
+    <%= button_to "Join Event", join_participants_path(@event), class: "btn btn-primary" %>
+    <% end %> 
+
+    <% if canceled_event(@user_registered, @event) == 1  %>  
+    <%= button_to "Canceled Event", canceled_participants_path(@event), class: "btn btn-danger" %>
+    <% end %> 
+
+
+    <hr>
+    <h1 class="uk-heading-line"><span>Participants</span></h1>
+      <ul class="uk-list uk-list-striped">
+        <% @parts.each do |a| %>
+          <li> <%= a.name %> </li>
+        <% end %>
+    </ul> 
+    <hr>
+    <div class="row">
+      <div class="col-3"></div>
+      <div class="col-6 text-center">
+        <%= link_to "Back", events_path, class:"btn btn-primary" %>
+      </div>
+      <div class="col-3"></div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,73 @@
+<div class="container">
+  <div class="form-head d-flex mb-3 align-items-start">
+    <div class="mr-auto">
+      <h2 class="text-black font-w600 mb-0">EventKam > Profile</h2>
+      <% if @user == current_user%>
+        <p class="mb-0">Welcome <%= @user.name %></p>
+         <%= link_to "Update profile", edit_user_registration_path, class:"btn btn-primary"%> 
+         <%= link_to "Delete Account", user_path(@user.id), method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-danger"%> 
+      <%else%>
+        <p class="mb-0">Welcome <%= current_user.name %></p>
+        <p class="text-primary mb-0">This is <%= @user.name %> profile.</p>
+      <%end%>
+    </div>
+    
+    <div class="dropdown custom-dropdown">
+      <div class="btn btn-sm btn-primary light d-flex align-items-center svg-btn" data-toggle="dropdown">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><g><path d="M22.4281 2.856H21.8681V1.428C21.8681 0.56 21.2801 0 20.4401 0C19.6001 0 19.0121 0.56 19.0121 1.428V2.856H9.71606V1.428C9.71606 0.56 9.15606 0 8.28806 0C7.42006 0 6.86006 0.56 6.86006 1.428V2.856H5.57206C2.85606 2.856 0.560059 5.152 0.560059 7.868V23.016C0.560059 25.732 2.85606 28.028 5.57206 28.028H22.4281C25.1441 28.028 27.4401 25.732 27.4401 23.016V7.868C27.4401 5.152 25.1441 2.856 22.4281 2.856ZM5.57206 5.712H22.4281C23.5761 5.712 24.5841 6.72 24.5841 7.868V9.856H3.41606V7.868C3.41606 6.72 4.42406 5.712 5.57206 5.712ZM22.4281 25.144H5.57206C4.42406 25.144 3.41606 24.136 3.41606 22.988V12.712H24.5561V22.988C24.5841 24.136 23.5761 25.144 22.4281 25.144Z" fill="#2F4CDD"></path></g></svg>
+        <div class="text-left ml-3">
+          <span class="d-block fs-16">Your date</span>
+          <small class="d-block fs-13"> <%= Time.zone.now%></small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-4 col-md-3 col-lg-2">
+      <%= image_tag (@user.avatar_thumbnail), style: 'height:150px;width:150px;'%>
+    </div>
+    <div class="col-sm-4 col-md-4 col-lg-4">
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <td><strong>Name </strong>:<%= @user.name %></td>
+          </tr>
+          <tr>
+            <td><strong>Email </strong><%= @user.email %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<h3>User Own Event</h3>
+ <% @user.events.each do |events|%>
+  <table>
+    <thead>
+      <tr>
+        <td>Event Title</td>
+        <td>Event Date Start</td>
+         <td>Event Date End</td>
+      </tr>
+    </thead>
+    
+    <tbody>
+    <tr>
+      <td><%= events.title%></td>
+      <td><%= events.date_start%></td>
+      <td><%= events.date_end%></td>
+      <td><%= events.participants.count%></td>
+    </tr>
+    </tbody>
+  </table>
+ <%end%>
+
+
+<h3>Participating Event</h3>
+
+<%Participant.where(participants_id:@user.id).each do |p|%>
+  <p><%=Event.find(p.event_id).title%></p>
+
+<%end%>

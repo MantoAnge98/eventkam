@@ -1,0 +1,52 @@
+<div class="row">
+  
+  <%if current_user.admin? %>
+  <div class="col-12">
+    <br>
+      <h4>User's information Page</h4>
+    <hr>
+    <div class="row">
+      <div class="col-2"></div>
+      <div class="col-8">
+        <%=link_to "Edit User",edit_admin_user_path(@user.id), :class=>"btn btn-secondary col-2" %> |
+        <%=link_to "Logout",user_path(@user.id),method: :delete, data: { confirm: 'Are you sure?'} , :class=>"btn btn-danger col-2" %> |
+        <%=link_to "User list",admin_users_path, :class=>"btn btn-primary col-2"%> |
+        <%= link_to "Create new user", new_admin_user_path, :class=>"btn btn-success col-2" %>
+      </div>
+     
+      <div class="col-2"></div>
+    </div> 
+    <hr>
+  </div>
+  <%end%>
+</div>
+
+  <table class="table text-center">
+    <thead class="thead-light">
+      <tr>
+        <th>Name</th>
+        <th>Image</th>
+        <th>Description</th>
+        <th>Date Start</th>
+        <th>Date End</th>
+        <th>Number of participants</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <% @event.each do |event| %>
+    <tbody>
+      <tr>
+        <td class=""><%= link_to "#{event.title}", event  %></td>
+        <td> <%= image_tag (event.image_thumbnail), class:"mr-3 img-fluid rounded", width:"85",alt:"DexignZone"%></td>
+        <td><%= event.content %></td>
+        <td><%= event.date_start %></td>
+        <td><%= event.date_end %></td>
+        <td><%= event.participants.count %></td>
+        <td>
+          <%= link_to 'Edit Event', edit_event_path(event), class: "badge badge-rounded badge-primary mb-0" %>
+          <%= link_to "Delete Event", event_path(event.id), method: :delete, data: {confirm: 'Are you sure?'}, class: "badge badge-rounded badge-danger"%> 
+        </td>
+      </tr>
+    </tbody> 
+    <% end %>
+  </table>

@@ -1,0 +1,41 @@
+<div class="" style="box-shadow: 0 .15rem 1.75rem 0 rgba(33,40,50,.15)!important;">
+  <div class="header-content">
+    <nav class="navbar navbar-expand">     
+      <div class="collapse navbar-collapse justify-content-between">
+       <div class="header-left">
+          <%= link_to image_tag("logo/logo.png"),root_path , class:"logo-area"%>
+         <a class="navbar-brand" href="/">EventKam</a>
+        </div>
+
+        <ul class="navbar-nav header-right">   
+          <div class="navbar-nav">
+            <% if current_user.admin?%>
+              <%= link_to "Admin Page",admin_users_path, class:"nav-item nav-link" , method: :get%>
+            <%end%>
+            <a class="nav-item nav-link" href="/">Home <i class="fa fa-home"></i></a>
+      
+            <%= link_to "Event", events_path, class:"nav-item nav-link" , method: :get%>
+            <i class="fa fa-calendar" id="iconEdit"></i>
+  
+            <%= link_to "Profile", user_path(current_user.id), class:"nav-item nav-link", method: :get%>
+            <i class="fa fa-user-plus" id="iconEdit"></i>
+
+            <%= link_to "Logout", destroy_user_session_path, class:"nav-item nav-link", method: :delete%>
+            <i class="fa fa-sign-out" id="iconEdit"></i>
+          </div>
+
+          <li class="nav-item header-profile">
+            <a class="nav-link" href="#">
+              <div class="header-info">
+                <span>Hello, <strong><%=current_user.name%></strong></span>
+              </div>
+              <%=image_tag (current_user.avatar_thumbnail), style:"width:20" %>
+            </a>
+          </li>
+        </ul>
+  
+      </div>
+    </nav>
+  </div>
+</div>
+

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h3>Hi <%= @user.name %></h3>
+    <hr>
+    <h5>Event Posted !</h5>
+    <div class="">
+      <span><h4>Event Name: <%= @event.title %></h4></span>
+      <span> <p> <%= image_tag @event.avatar_thumbnail %></p> </span>
+      <span><h4>Event Description: <%= @event.content %></h4></span>
+      <span><h4>Event Date Start: <%= @event.date_start %></h4></span>
+      <span><h4>Event Date End: <%= @event.date_end %></h4></span>
+    </div>
+  </body>
+</html>

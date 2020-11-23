@@ -1,0 +1,69 @@
+<div class="container">
+  <br>
+  <h3>Welcome to Dashboard</h3>
+    <div class="row">
+      <div class="col-2"></div>
+      <div class="col-8">
+        <h5 class="text-center"><strong>Your Information</strong></h5> 
+        <hr> 
+        <p>Name: <%= current_user.name %></p>
+        <p>Email: <%= current_user.email%></p>
+        </div>
+      <div class="col-2"></div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <% flash.each do |key, value| %>
+            <div class="alert alert-<%= key %>"><%= value %></div>
+            <!--<p><%= notice%></p> -->
+        <% end %>
+      </div>
+    </div>
+    <hr>
+    <%if @user == current_user%>
+      <div class="action">
+        <div class="row">
+          <div class="col-12">
+            <div class="text-center">
+              <%=link_to "Edit User",edit_user_path(current_user.id), :class=>"btn btn-secondary col-3" %> |
+              <%=link_to "Logout",user_path(current_user.id),method: :delete, data: { confirm: 'Are you sure?'} ,:class=>"btn btn-danger col-3" %>
+            </div>
+            <hr>
+            <div class="text-center">
+              <%if current_user.admin? %>
+                <%=link_to "User list",admin_users_path, :class=>"btn btn-primary sm col-2" %> |
+                <%= link_to "Create User", new_admin_user_path, :class=>"btn btn-secondary sm col-2"%> |
+                <%= link_to "Admin Profile", user_path(current_user.id), :class=>"btn btn-info sm col-2" %>
+              <%end%>
+            </div>
+          </div>
+        </div>
+      </div>
+    <%end%>
+  <table class="table">
+    <thead class="thead-light">
+        <tr>
+          <th>User name</th>
+          <th>Admin</th>
+          <th>Event Number</th>
+          <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+      <% @user.each do |user| %>
+          <tr>
+              <td><%= link_to "#{user.name}", admin_user_path(user)%></td>
+              <td><%= user.admin %></td>
+              <td><%= user.events.count %></td>
+              <td>
+                <%= link_to "Edit Admin", edit_admin_user_path(user),:class=>"btn btn-secondary" %>
+                <%= link_to "Delete Admin", admin_user_path(user), method: :delete, data: { confirm: 'are you sure ?' },:class=>"btn btn-danger" %>
+              </td>
+          </tr>
+      <% end %>
+    </tbody> 
+  </table>
+  <%= paginate @user %>
+   <hr>
+    <%=link_to " Create Admin", new_admin_user_path, :class=> "btn btn-primary col-3" %>
+</div>
